@@ -1,7 +1,7 @@
 import type React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthForm } from '~/entities/ui/AuthForm';
+import { AuthForm } from '~/entities/AuthForm';
 import { Routes } from '~/shared/constants';
 import { useRegisterByEmail } from '~/shared/hooks';
 import { useAuthByCode } from '../hooks/useAuthByCode';
