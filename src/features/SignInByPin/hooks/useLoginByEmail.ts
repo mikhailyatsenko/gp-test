@@ -1,25 +1,26 @@
 import { useState } from 'react';
 import { api } from '~/shared/api';
-import { useAuth } from '~/shared/hooks';
+import { useAuth } from '~/shared/hooks/useAuth';
 
-interface UseAuthByCodeResult {
-  login: (code: string) => Promise<boolean>;
+interface UseLoginByEmailResult {
+  login: (email: string, pincode: string) => Promise<boolean>;
   error: string;
   isLoading: boolean;
 }
 
-export const useAuthByCode = (): UseAuthByCodeResult => {
+export const useLoginByEmail = (): UseLoginByEmailResult => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { setAuth } = useAuth();
 
-  const login = async (code: string): Promise<boolean> => {
+  const login = async (email: string, pincode: string): Promise<boolean> => {
     setError('');
     setIsLoading(true);
 
     try {
-      const response = await api.loginCode({
-        code,
+      const response = await api.loginEmail({
+        email,
+        pincode,
       });
 
       if (!response.ok) {
@@ -29,10 +30,13 @@ export const useAuthByCode = (): UseAuthByCodeResult => {
 
       const data = await response.json();
       setAuth(data.data.session);
-
       return true;
     } catch (error) {
-      setError('Invalid access code');
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('Failed to login. Please try again.');
+      }
       console.error('Login error:', error);
       return false;
     } finally {

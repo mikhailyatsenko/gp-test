@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { api } from '~/shared/api/api';
+import { api } from '~/shared/api';
 import { getBrowserLanguage } from '../lib';
 
 interface UseRegisterByEmailResult {

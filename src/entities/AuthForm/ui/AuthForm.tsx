@@ -13,9 +13,7 @@ export const AuthForm: FC<AuthFormProps> = ({
   return (
     <form className={styles.form} onSubmit={onSubmit}>
       <div className={styles.inputGroup}>
-        <label htmlFor="auth-input" className="sr-only">
-          Email or access code
-        </label>
+        <label htmlFor="auth-input">Email or access code</label>
         <input
           id="auth-input"
           name="auth"
