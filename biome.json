@@ -16,7 +16,8 @@
       "lighthouse-report/",
       "e2e-reports/",
       ".vscode",
-      "*.log"
+      "*.log",
+      "public/mockServiceWorker.js"
     ]
   },
   "formatter": {
