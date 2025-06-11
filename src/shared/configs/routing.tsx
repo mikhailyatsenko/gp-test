@@ -4,28 +4,28 @@ import { AuthPinPage } from '~/pages/AuthPinPage';
 import { CodePage } from '~/pages/CodePage';
 import { HomePage } from '~/pages/HomePage';
 import { RegPage } from '~/pages/RegPage';
-import { Route } from '~/shared/constants/routes';
+import { Routes } from '~/shared/constants/routes';
 
 export const router = createBrowserRouter([
   {
-    path: Route.Home,
+    path: Routes.Home,
     index: true,
     element: <HomePage />,
   },
   {
-    path: Route.Auth,
+    path: Routes.Auth,
     element: <AuthPage />,
   },
   {
-    path: Route.AuthEmail,
+    path: Routes.AuthEmail,
     element: <AuthPinPage />,
   },
   {
-    path: Route.Reg,
+    path: Routes.Reg,
     element: <RegPage />,
   },
   {
-    path: Route.Code,
+    path: Routes.Code,
     element: <CodePage />,
   },
 ]);
