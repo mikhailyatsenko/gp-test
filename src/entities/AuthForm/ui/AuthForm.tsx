@@ -1,10 +1,9 @@
 import type { FC } from 'react';
 import { Button, ButtonVariant } from '~/shared/components/Button';
 import { TextInput } from '~/shared/components/TextInput';
+import { CONTINUE_BUTTON_TEXT, INPUT_LABEL } from '../constants';
 import type { AuthFormProps } from '../types';
 import styles from './AuthForm.module.css';
-
-const INPUT_LABEL = 'Email or access code';
 
 export const AuthForm: FC<AuthFormProps> = ({
   inputValue,
@@ -33,7 +32,7 @@ export const AuthForm: FC<AuthFormProps> = ({
       </div>
 
       <Button variant={ButtonVariant.Blue} disabled={isLoading}>
-        Continue
+        {CONTINUE_BUTTON_TEXT}
       </Button>
     </form>
   );

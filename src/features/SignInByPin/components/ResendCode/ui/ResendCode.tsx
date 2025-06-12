@@ -3,7 +3,12 @@ import { useEffect, useState } from 'react';
 import { api } from '~/shared/api';
 import { Button, ButtonVariant } from '~/shared/components/Button';
 import { getBrowserLanguage } from '~/shared/utils';
-import { RESEND_TIMEOUT } from '../constants';
+import {
+  RESEND_CODE_TEXT,
+  RESEND_TIMEOUT,
+  RESEND_TIMER_TEXT,
+  SECONDS_TEXT,
+} from '../constants';
 import type { ResendCodeProps } from '../types';
 import styles from './ResendCode.module.css';
 
@@ -11,19 +16,21 @@ export const ResendCode: FC<ResendCodeProps> = ({ email }) => {
   const [timeLeft, setTimeLeft] = useState(RESEND_TIMEOUT);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          setIsResendDisabled(false);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+    if (isResendDisabled) {
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            setIsResendDisabled(false);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
 
-    return () => clearInterval(timer);
-  }, []);
+      return () => clearInterval(timer);
+    }
+  }, [isResendDisabled]);
 
   const handleResend = async () => {
     try {
@@ -47,7 +54,9 @@ export const ResendCode: FC<ResendCodeProps> = ({ email }) => {
   return (
     <div className={styles.timer}>
       {isResendDisabled ? (
-        <>Resend code in {timeLeft} sec</>
+        <>
+          {RESEND_TIMER_TEXT} {timeLeft} {SECONDS_TEXT}
+        </>
       ) : (
         <Button
           variant={ButtonVariant.Blank}
@@ -56,7 +65,7 @@ export const ResendCode: FC<ResendCodeProps> = ({ email }) => {
           onClick={handleResend}
           disabled={isResendDisabled}
         >
-          Resend code
+          {RESEND_CODE_TEXT}
         </Button>
       )}
     </div>

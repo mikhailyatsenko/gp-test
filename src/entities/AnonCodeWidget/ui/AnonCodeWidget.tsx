@@ -1,6 +1,11 @@
 import type React from 'react';
 import { type FC, useState } from 'react';
 import { Button, ButtonVariant } from '~/shared/components/Button';
+import {
+  COPIED_BUTTON_TEXT,
+  COPY_BUTTON_TEXT,
+  LOADING_TEXT,
+} from '../constants';
 import type { AnonCodeWidgetProps } from '../types';
 import styles from './AnonCodeWidget.module.css';
 
@@ -23,7 +28,7 @@ export const AnonCodeWidget: FC<AnonCodeWidgetProps> = ({
 
   return (
     <>
-      {isLoading && <div>Loading...</div>}
+      {isLoading && <div>{LOADING_TEXT}</div>}
       {error && <div>{error}</div>}
       <div className={styles.codeContainer}>
         <div className={styles.code}>{code}</div>
@@ -32,7 +37,7 @@ export const AnonCodeWidget: FC<AnonCodeWidgetProps> = ({
           onClick={handleCopy}
           variant={ButtonVariant.Outlined}
         >
-          {isCopied ? 'Copied!' : 'Copy'}
+          {isCopied ? COPIED_BUTTON_TEXT : COPY_BUTTON_TEXT}
         </Button>
       </div>
     </>

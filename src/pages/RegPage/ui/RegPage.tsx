@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { RegUser } from '~/features/RegUser';
 import { Button, ButtonVariant } from '~/shared/components/Button';
 import { Routes } from '~/shared/constants';
+import { SIGN_IN_TEXT } from '../constants';
 import styles from './RegPage.module.css';
 
 export const RegPage = () => {
@@ -15,7 +16,7 @@ export const RegPage = () => {
         className={styles.link}
         onClick={() => navigate(Routes.Auth)}
       >
-        Already have an account? Sign in
+        {SIGN_IN_TEXT}
       </Button>
     </div>
   );

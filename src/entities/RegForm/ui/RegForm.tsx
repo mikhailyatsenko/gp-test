@@ -2,10 +2,14 @@ import type React from 'react';
 import { type FC, useState } from 'react';
 import { Button, ButtonVariant } from '~/shared/components/Button';
 import { TextInput } from '~/shared/components/TextInput';
+import {
+  CONTINUE_WITH_EMAIL,
+  EMAIL_INPUT_LABEL,
+  LOADING_TEXT,
+  OR_DIVIDER,
+} from '../constants';
 import type { RegFormProps } from '../types';
 import styles from './RegForm.module.css';
-
-const INPUT_LABEL = 'Email';
 
 export const RegForm: FC<RegFormProps> = ({
   onEmailSubmit,
@@ -34,11 +38,11 @@ export const RegForm: FC<RegFormProps> = ({
           <TextInput
             type="email"
             required
-            placeholder={INPUT_LABEL}
+            placeholder={EMAIL_INPUT_LABEL}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={isEmailLoading || isAnonymousLoading}
-            label={INPUT_LABEL}
+            label={EMAIL_INPUT_LABEL}
             invalid={!!emailError}
             hideLabel
           />
@@ -51,12 +55,12 @@ export const RegForm: FC<RegFormProps> = ({
           className={styles.button}
           disabled={isEmailLoading || isAnonymousLoading}
         >
-          {isEmailLoading ? 'Loading...' : 'Continue with Email'}
+          {isEmailLoading ? LOADING_TEXT : CONTINUE_WITH_EMAIL}
         </Button>
       </form>
 
       <div className={styles.divider}>
-        <span>or</span>
+        <span>{OR_DIVIDER}</span>
       </div>
 
       <form className={styles.form} onSubmit={handleAnonymousSubmit}>
