@@ -1,2 +1,2 @@
-export * from './useRegisterByEmail';
+export * from './useEnterByEmail';
 export * from './useAuth';

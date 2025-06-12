@@ -3,5 +3,5 @@ export enum Routes {
   Auth = '/auth',
   Reg = '/reg',
   AuthEmail = '/auth/email',
-  Code = '/reg/code',
+  RegCode = '/reg/code',
 }

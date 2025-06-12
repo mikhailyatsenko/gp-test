@@ -20,8 +20,6 @@ enableMocking().then(() => {
   if (!root) throw new Error('Root dom node is missing');
 
   createRoot(root).render(
-    <StrictMode>
-      <App />
-    </StrictMode>,
+    <App />,
   );
 });

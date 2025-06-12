@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { api } from '~/shared/api';
 import { getBrowserLanguage } from '~/shared/utils';
 
-interface UseRegisterByEmailResult {
+interface useEnterByEmailResult {
   register: (email: string) => Promise<boolean>;
   error: string;
   isLoading: boolean;
 }
 
-export const useRegisterByEmail = (): UseRegisterByEmailResult => {
+export const useEnterByEmail = (): useEnterByEmailResult => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -17,15 +17,10 @@ export const useRegisterByEmail = (): UseRegisterByEmailResult => {
     setIsLoading(true);
 
     try {
-      const response = await api.registerEmail({
+      await api.registerEmail({
         email,
         lang: getBrowserLanguage(),
       });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error.message);
-      }
 
       return true;
     } catch (error) {

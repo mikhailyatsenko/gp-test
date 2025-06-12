@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthByPin } from '~/features/SignInByPin';
 
+import { Routes } from '~/shared/constants';
+import { AUTH_PIN_TITLE, CODE_SENT_TO } from '../constants';
 import styles from './AuthEmailPage.module.css';
 
 export const AuthPinPage = () => {
@@ -11,15 +13,19 @@ export const AuthPinPage = () => {
 
   useEffect(() => {
     if (!email) {
-      navigate('/auth');
+      navigate(Routes.Auth);
       return;
     }
   }, [email, navigate]);
 
+  if (!email) return null;
+
   return (
     <div className={styles.formContainer}>
-      <h2 className={styles.title}>Enter PIN code</h2>
-      <p className={styles.subtitle}>Code sent to {email}</p>
+      <h2 className={styles.title}>{AUTH_PIN_TITLE}</h2>
+      <p className={styles.subtitle}>
+        {CODE_SENT_TO} {email}
+      </p>
 
       <AuthByPin email={email} />
     </div>

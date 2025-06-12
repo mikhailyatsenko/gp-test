@@ -2,12 +2,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { GetAnonCode } from '~/features/GetAnonCode';
 import { Button, ButtonVariant } from '~/shared/components/Button';
+import { Routes } from '~/shared/constants';
 import styles from './CodePage.module.css';
 
 export function CodePage() {
   const navigate = useNavigate();
   const handleContinue = () => {
-    navigate('/auth');
+    navigate(Routes.Auth);
   };
 
   return (

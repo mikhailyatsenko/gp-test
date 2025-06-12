@@ -20,13 +20,7 @@ export const useRegisterAnonymous = (): UseRegisterAnonymousResult => {
     try {
       const response = await api.registerCode();
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error.message);
-      }
-
-      const data = await response.json();
-      return data.data.login_code;
+      return response.data.login_code;
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);

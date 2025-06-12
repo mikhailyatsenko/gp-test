@@ -22,13 +22,7 @@ export const useAuthByCode = (): UseAuthByCodeResult => {
         code,
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error.message);
-      }
-
-      const data = await response.json();
-      setAuth(data.data.session);
+      setAuth(response.data.session);
 
       return true;
     } catch (error) {

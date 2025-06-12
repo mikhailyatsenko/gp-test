@@ -3,36 +3,35 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthForm } from '~/entities/AuthForm';
 import { Routes } from '~/shared/constants';
-import { useRegisterByEmail } from '~/shared/hooks';
+import { useEnterByEmail } from '~/shared/hooks';
 import { useAuthByCode } from '../hooks/useAuthByCode';
 import { validateInput } from '../lib/validateInput';
 
 export const AuthUser = () => {
   const navigate = useNavigate();
+  const [inputValue, setInputValue] = useState('');
+  const [inputError, setInputError] = useState('');
+
   const {
     register,
     error: registerError,
     isLoading: isRegisterLoading,
-  } = useRegisterByEmail();
+  } = useEnterByEmail();
+
   const {
     login,
     error: loginError,
     isLoading: isLoginLoading,
   } = useAuthByCode();
 
-  const [inputValue, setInputValue] = useState('');
-  const [error, setError] = useState('');
-
-  const isLoading = isRegisterLoading || isLoginLoading;
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setInputError('');
 
     const inputType = validateInput(inputValue);
 
     if (!inputType) {
-      setError('Enter valid email or 16-digit code');
+      setInputError('Enter valid email or 16-digit code');
       return;
     }
 
@@ -49,11 +48,12 @@ export const AuthUser = () => {
     }
   };
 
+  const isLoading = isRegisterLoading || isLoginLoading;
   return (
     <AuthForm
       inputValue={inputValue}
       setInputValue={setInputValue}
-      error={error || registerError || loginError}
+      error={inputError || registerError || loginError}
       isLoading={isLoading}
       onSubmit={handleSubmit}
     />

@@ -23,13 +23,8 @@ export const useLoginByEmail = (): UseLoginByEmailResult => {
         pincode,
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error.message);
-      }
+      setAuth(response.data.session);
 
-      const data = await response.json();
-      setAuth(data.data.session);
       return true;
     } catch (error) {
       if (error instanceof Error) {

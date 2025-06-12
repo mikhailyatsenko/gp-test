@@ -1,10 +1,12 @@
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { api } from '~/shared/api';
+import { toast } from 'react-toastify';
 import { Button, ButtonVariant } from '~/shared/components/Button';
-import { getBrowserLanguage } from '~/shared/utils';
+import { useEnterByEmail } from '~/shared/hooks';
+import { showToast } from '~/shared/lib';
 import {
   RESEND_CODE_TEXT,
+  RESEND_SUCCESS_TEXT,
   RESEND_TIMEOUT,
   RESEND_TIMER_TEXT,
   SECONDS_TEXT,
@@ -13,6 +15,12 @@ import type { ResendCodeProps } from '../types';
 import styles from './ResendCode.module.css';
 
 export const ResendCode: FC<ResendCodeProps> = ({ email }) => {
+  const {
+    register,
+    error: registerError,
+    isLoading: isRegisterLoading,
+  } = useEnterByEmail();
+
   const [timeLeft, setTimeLeft] = useState(RESEND_TIMEOUT);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   useEffect(() => {
@@ -33,23 +41,19 @@ export const ResendCode: FC<ResendCodeProps> = ({ email }) => {
   }, [isResendDisabled]);
 
   const handleResend = async () => {
-    try {
-      const response = await api.registerEmail({
-        email,
-        lang: getBrowserLanguage(),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error.message);
-      }
-
+    const isSuccess = await register(email);
+    if (isSuccess) {
       setTimeLeft(RESEND_TIMEOUT);
       setIsResendDisabled(true);
-    } catch (error) {
-      console.error('Resend error:', error);
+      showToast.success(RESEND_SUCCESS_TEXT);
     }
   };
+
+  useEffect(() => {
+    if (registerError) {
+      toast.error(registerError);
+    }
+  }, [registerError]);
 
   return (
     <div className={styles.timer}>
@@ -61,9 +65,8 @@ export const ResendCode: FC<ResendCodeProps> = ({ email }) => {
         <Button
           variant={ButtonVariant.Blank}
           type="button"
-          className={styles.resendButton}
           onClick={handleResend}
-          disabled={isResendDisabled}
+          disabled={isResendDisabled || isRegisterLoading}
         >
           {RESEND_CODE_TEXT}
         </Button>

@@ -6,9 +6,9 @@ export const HomePage = () => {
   const { logout } = useAuth();
   return (
     <>
-      <WelcomeSection title="Welcome!" />
+      <WelcomeSection title="You are logged in!" />
       <Button variant={ButtonVariant.Blank} onClick={logout}>
-        Logout
+        Sign out
       </Button>
     </>
   );

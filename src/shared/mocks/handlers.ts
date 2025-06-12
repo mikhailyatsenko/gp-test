@@ -37,27 +37,13 @@ export const handlers = [
     }
 
     return HttpResponse.json({
-      data: {
-        message: 'PIN code sent',
-      },
+      data: [],
     });
   }),
 
   // Login with email + PIN
   http.post(`${API_URL}/auth/login/email`, async ({ request }) => {
     const body = (await request.json()) as { email: string; pincode: string };
-
-    if (!isValidEmail(body.email)) {
-      return HttpResponse.json(
-        {
-          error: {
-            code: 'VALIDATION_ERROR',
-            message: 'Invalid email format',
-          },
-        },
-        { status: 422 },
-      );
-    }
 
     if (body.pincode !== VALID_PIN) {
       return HttpResponse.json(
@@ -99,10 +85,10 @@ export const handlers = [
         {
           error: {
             code: 'AUTHENTICATION_ERROR',
-            message: 'Invalid code format',
+            message: 'Authentication error',
           },
         },
-        { status: 422 },
+        { status: 401 },
       );
     }
 

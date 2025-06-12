@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
     element: <RegPage />,
   },
   {
-    path: Routes.Code,
+    path: Routes.RegCode,
     element: <CodePage />,
   },
 ]);

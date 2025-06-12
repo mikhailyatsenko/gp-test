@@ -1,8 +1,7 @@
-import type React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RegForm } from '~/entities/RegForm';
-import { useRegisterAnonymous } from '../../GetAnonCode/hooks/useRegisterAnonymous';
-import { useRegisterByEmail } from '../hooks/useRegisterByEmail';
+import { Routes } from '~/shared/constants';
+import { useEnterByEmail } from '~/shared/hooks';
 
 export const RegUser = () => {
   const navigate = useNavigate();
@@ -10,22 +9,17 @@ export const RegUser = () => {
     register: registerEmail,
     error: emailError,
     isLoading: isEmailLoading,
-  } = useRegisterByEmail();
-  const {
-    register: registerAnonymous,
-    error: anonymousError,
-    isLoading: isAnonymousLoading,
-  } = useRegisterAnonymous();
+  } = useEnterByEmail();
 
   const handleEmailSubmit = async (email: string) => {
     const success = await registerEmail(email);
     if (success) {
-      navigate('/auth/email', { state: { email } });
+      navigate(Routes.AuthEmail, { state: { email } });
     }
   };
 
   const handleAnonymousSubmit = async () => {
-    navigate('/reg/code');
+    navigate(Routes.RegCode);
   };
 
   return (
@@ -33,9 +27,7 @@ export const RegUser = () => {
       onEmailSubmit={handleEmailSubmit}
       onAnonymousSubmit={handleAnonymousSubmit}
       emailError={emailError}
-      anonymousError={anonymousError}
       isEmailLoading={isEmailLoading}
-      isAnonymousLoading={isAnonymousLoading}
     />
   );
 };
