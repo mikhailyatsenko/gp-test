@@ -11,9 +11,15 @@ export const WelcomeSection: FC<WelcomeSectionProps> = ({
   subtitle,
 }) => {
   return (
-    <div className={styles.welcomeSection}>
-      <h2 className={styles.title}>{title}</h2>
-      {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+    <section className={styles.welcomeSection} aria-labelledby="welcome-title">
+      <h1 id="welcome-title" className={styles.title}>
+        {title}
+      </h1>
+      {subtitle && (
+        <p className={styles.subtitle} id="welcome-subtitle">
+          {subtitle}
+        </p>
+      )}
       <img
         src="/images/welcome-cat.svg"
         alt="Welcome cat illustration"
@@ -23,6 +29,6 @@ export const WelcomeSection: FC<WelcomeSectionProps> = ({
         loading="lazy"
         decoding="async"
       />
-    </div>
+    </section>
   );
 };

@@ -21,13 +21,13 @@ export const AuthPinPage = () => {
   if (!email) return null;
 
   return (
-    <div className={styles.formContainer}>
+    <section className={styles.formContainer}>
       <h2 className={styles.title}>{AUTH_PIN_TITLE}</h2>
       <p className={styles.subtitle}>
         {CODE_SENT_TO} {email}
       </p>
 
       <AuthByPin email={email} />
-    </div>
+    </section>
   );
 };

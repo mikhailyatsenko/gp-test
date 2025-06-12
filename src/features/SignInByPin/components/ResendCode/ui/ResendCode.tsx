@@ -23,6 +23,7 @@ export const ResendCode: FC<ResendCodeProps> = ({ email }) => {
 
   const [timeLeft, setTimeLeft] = useState(RESEND_TIMEOUT);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
+
   useEffect(() => {
     if (isResendDisabled) {
       const timer = setInterval(() => {
@@ -56,21 +57,23 @@ export const ResendCode: FC<ResendCodeProps> = ({ email }) => {
   }, [registerError]);
 
   return (
-    <div className={styles.timer}>
+    <output className={styles.timer} aria-live="polite">
       {isResendDisabled ? (
-        <>
+        <span className={styles.timerText}>
           {RESEND_TIMER_TEXT} {timeLeft} {SECONDS_TEXT}
-        </>
+        </span>
       ) : (
         <Button
           variant={ButtonVariant.Blank}
           type="button"
           onClick={handleResend}
           disabled={isResendDisabled || isRegisterLoading}
+          aria-label="Resend verification code"
+          aria-busy={isRegisterLoading}
         >
           {RESEND_CODE_TEXT}
         </Button>
       )}
-    </div>
+    </output>
   );
 };

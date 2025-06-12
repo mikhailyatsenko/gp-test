@@ -10,10 +10,10 @@ export const RegPage = () => {
   return (
     <div className={styles.formContainer}>
       <h2 className={styles.title}>Registration</h2>
+      <p className={styles.subtitle}>Enter your email to create an account</p>
       <RegUser />
       <Button
         variant={ButtonVariant.Blank}
-        className={styles.link}
         onClick={() => navigate(Routes.Auth)}
       >
         {SIGN_IN_TEXT}

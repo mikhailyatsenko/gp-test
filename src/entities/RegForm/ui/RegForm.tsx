@@ -31,29 +31,42 @@ export const RegForm: FC<RegFormProps> = ({
     await onAnonymousSubmit();
   };
 
+  const isDisabled = isEmailLoading || isAnonymousLoading;
+
   return (
-    <>
-      <form className={styles.form} onSubmit={handleEmailSubmit}>
-        <div className={styles.inputGroup}>
+    <section aria-label="Registration options">
+      <form
+        className={styles.form}
+        onSubmit={handleEmailSubmit}
+        aria-label="Email registration"
+        noValidate
+      >
+        <fieldset className={styles.inputGroup}>
+          <legend className="sr-only">{EMAIL_INPUT_LABEL}</legend>
           <TextInput
             type="email"
             required
             placeholder={EMAIL_INPUT_LABEL}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            disabled={isEmailLoading || isAnonymousLoading}
+            disabled={isDisabled}
             label={EMAIL_INPUT_LABEL}
             invalid={!!emailError}
             hideLabel
+            aria-required="true"
           />
-          {emailError && <p className={styles.error}>{emailError}</p>}
-        </div>
+          {emailError && (
+            <p className={styles.error} role="alert">
+              {emailError}
+            </p>
+          )}
+        </fieldset>
 
         <Button
           variant={ButtonVariant.Blue}
           type="submit"
-          className={styles.button}
-          disabled={isEmailLoading || isAnonymousLoading}
+          disabled={isDisabled}
+          aria-busy={isEmailLoading}
         >
           {isEmailLoading ? LOADING_TEXT : CONTINUE_WITH_EMAIL}
         </Button>
@@ -63,17 +76,15 @@ export const RegForm: FC<RegFormProps> = ({
         <span>{OR_DIVIDER}</span>
       </div>
 
-      <form className={styles.form} onSubmit={handleAnonymousSubmit}>
-        {anonymousError && <p className={styles.error}>{anonymousError}</p>}
-        <Button
-          variant={ButtonVariant.Grey}
-          type="submit"
-          className={styles.button}
-          disabled={isEmailLoading || isAnonymousLoading}
-        >
-          {isAnonymousLoading ? 'Loading...' : 'Anonymous Registration'}
-        </Button>
-      </form>
-    </>
+      <Button
+        variant={ButtonVariant.Grey}
+        type="button"
+        onClick={handleAnonymousSubmit}
+        disabled={isDisabled}
+        aria-busy={isAnonymousLoading}
+      >
+        {isAnonymousLoading ? LOADING_TEXT : 'Anonymous Registration'}
+      </Button>
+    </section>
   );
 };

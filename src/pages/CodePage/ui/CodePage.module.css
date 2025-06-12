@@ -1,23 +1,25 @@
 .formContainer {
   width: 100%;
   max-width: 400px;
-  padding: 2rem;
+  padding: 32px;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .title {
-  margin: 0 0 0.5rem;
-  font-size: 1.5rem;
+  font-size: 32px;
+  line-height: 1.2;
   font-weight: 600;
+  margin: 0 0 4px;
+  color: #1f2937;
   text-align: center;
-  color: #333;
 }
 
 .subtitle {
-  margin: 0 0 2rem;
-  font-size: 0.875rem;
+  margin: 0 0 24px;
+  font-size: 16px;
+  line-height: 1.5;
   text-align: center;
-  color: #666;
+  color: #4b5563;
 }

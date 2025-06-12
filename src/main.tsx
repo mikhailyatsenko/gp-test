@@ -19,7 +19,5 @@ enableMocking().then(() => {
   const root = document.getElementById('root');
   if (!root) throw new Error('Root dom node is missing');
 
-  createRoot(root).render(
-    <App />,
-  );
+  createRoot(root).render(<App />);
 });

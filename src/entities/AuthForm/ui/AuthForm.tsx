@@ -13,8 +13,16 @@ export const AuthForm: FC<AuthFormProps> = ({
   onSubmit,
 }) => {
   return (
-    <form className={styles.form} onSubmit={onSubmit}>
-      <div className={styles.inputGroup}>
+    <form
+      className={styles.form}
+      onSubmit={onSubmit}
+      aria-label="Authentication form"
+      noValidate
+    >
+      <fieldset className={styles.inputGroup}>
+        <legend className="sr-only" id="auth-input-label">
+          {INPUT_LABEL}
+        </legend>
         <TextInput
           id="auth-input"
           name="auth"
@@ -27,11 +35,16 @@ export const AuthForm: FC<AuthFormProps> = ({
           label={INPUT_LABEL}
           hideLabel
           invalid={!!error}
+          aria-required="true"
         />
-        {error && <p className={styles.error}>{error}</p>}
-      </div>
+        {error && (
+          <p className={styles.error} role="alert">
+            {error}
+          </p>
+        )}
+      </fieldset>
 
-      <Button variant={ButtonVariant.Blue} disabled={isLoading}>
+      <Button variant={ButtonVariant.Blue} disabled={isLoading} type="submit">
         {CONTINUE_BUTTON_TEXT}
       </Button>
     </form>

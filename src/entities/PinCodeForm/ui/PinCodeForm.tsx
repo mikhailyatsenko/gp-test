@@ -13,9 +13,17 @@ export const PinCodeForm: FC<PinCodeFormProps> = ({
   error,
   isLoading,
 }) => {
+  const isDisabled = isLoading || pinValue.length !== 6;
+
   return (
-    <form className={styles.form} onSubmit={onSubmit}>
-      <div className={styles.inputGroup}>
+    <form
+      className={styles.form}
+      onSubmit={onSubmit}
+      aria-label="PIN verification"
+      noValidate
+    >
+      <fieldset className={styles.inputGroup}>
+        <legend className="sr-only">{INPUT_LABEL}</legend>
         <TextInput
           type="text"
           required
@@ -30,17 +38,22 @@ export const PinCodeForm: FC<PinCodeFormProps> = ({
           hideLabel
           isPin
           invalid={!!error}
+          aria-required="true"
         />
-        {error && <p className={styles.error}>{error}</p>}
-      </div>
+        {error && (
+          <p className={styles.error} role="alert">
+            {error}
+          </p>
+        )}
+      </fieldset>
 
       <Button
         variant={ButtonVariant.Blue}
         type="submit"
-        className={styles.button}
-        disabled={isLoading || pinValue.length !== 6}
+        disabled={isDisabled}
+        aria-busy={isLoading}
       >
-        Submit
+        {isLoading ? 'Verifying...' : 'Submit'}
       </Button>
     </form>
   );

@@ -27,19 +27,26 @@ export const AnonCodeWidget: FC<AnonCodeWidgetProps> = ({
   };
 
   return (
-    <>
-      {isLoading && <div>{LOADING_TEXT}</div>}
-      {error && <div>{error}</div>}
-      <div className={styles.codeContainer}>
-        <div className={styles.code}>{code}</div>
+    <section aria-label="Anonymous code">
+      {isLoading && <output aria-live="polite">{LOADING_TEXT}</output>}
+      {error && (
+        <div role="alert" className={styles.error}>
+          {error}
+        </div>
+      )}
+      <div className={styles.codeContainer} aria-live="polite">
+        <span className={styles.code} aria-label="Your anonymous code">
+          {code}
+        </span>
         <Button
           type="button"
           onClick={handleCopy}
           variant={ButtonVariant.Outlined}
+          aria-label={isCopied ? 'Code copied' : 'Copy code to clipboard'}
         >
           {isCopied ? COPIED_BUTTON_TEXT : COPY_BUTTON_TEXT}
         </Button>
       </div>
-    </>
+    </section>
   );
 };

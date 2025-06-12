@@ -8,12 +8,16 @@ export const Button = ({
   isLoading,
   disabled,
   className,
+  type = 'button',
   ...props
 }: ButtonProps) => {
   return (
     <button
       className={clsx(styles.button, styles[variant], className)}
       disabled={disabled || isLoading}
+      type={type}
+      aria-busy={isLoading}
+      aria-disabled={disabled || isLoading}
       {...props}
     >
       {isLoading ? 'Loading...' : children}

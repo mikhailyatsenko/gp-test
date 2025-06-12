@@ -8,16 +8,17 @@ import styles from './AuthPage.module.css';
 export const AuthPage = () => {
   const navigate = useNavigate();
   return (
-    <div className={styles.formContainer}>
-      <h2 className={styles.title}>{AUTH_TITLE}</h2>
+    <section className={styles.formContainer}>
+      <h1 className={styles.title}>{AUTH_TITLE}</h1>
       <p className={styles.subtitle}>{AUTH_SUBTITLE}</p>
       <AuthUser />
       <Button
         variant={ButtonVariant.Blank}
         onClick={() => navigate(Routes.Reg)}
+        aria-label={SIGN_UP_TEXT}
       >
         {SIGN_UP_TEXT}
       </Button>
-    </div>
+    </section>
   );
 };
