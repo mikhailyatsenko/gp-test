@@ -1,0 +1,60 @@
+.container {
+  display: block;
+  inline-size: 100%;
+}
+
+.label {
+  display: block;
+  margin-block-end: 8px;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.wrapInput {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.TextInput {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fafafa;
+  transition: border-color 0.2s;
+}
+
+.TextInput:focus {
+  outline: none;
+  border-color: #2563eb;
+  background-color: white;
+}
+
+.TextInput:disabled {
+  background-color: #f3f4f6;
+  cursor: not-allowed;
+}
+
+.invalid {
+  box-shadow: inset 0 0 0 1px #dc2626;
+}
+
+.pinInput {
+  font-family: monospace;
+  letter-spacing: 8px;
+  text-align: center;
+  font-size: 24px;
+  padding: 12px 8px;
+}

@@ -19,8 +19,8 @@ export const AuthPinPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
-        <h2 className={styles.title}>Введите PIN-код</h2>
-        <p className={styles.subtitle}>Код отправлен на {email}</p>
+        <h2 className={styles.title}>Enter PIN code</h2>
+        <p className={styles.subtitle}>Code sent to {email}</p>
 
         <AuthByPin email={email} />
       </div>
