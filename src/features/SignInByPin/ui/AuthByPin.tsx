@@ -2,6 +2,7 @@ import type React from 'react';
 import { type FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PinCodeForm } from '~/entities/PinCodeForm/ui/PinCodeForm';
+import { Routes } from '~/shared/constants';
 import { ResendCode } from '../components/ResendCode/ui/ResendCode';
 import { useLoginByEmail } from '../hooks/useLoginByEmail';
 import type { AuthByPinProps } from '../types';
@@ -18,7 +19,7 @@ export const AuthByPin: FC<AuthByPinProps> = ({ email }) => {
 
     const success = await login(email, pinValue);
     if (success) {
-      navigate('/');
+      navigate(Routes.Home);
     }
   };
 

@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import type { ButtonProps } from '../types';
 import styles from './Button.module.css';
 
@@ -5,13 +6,13 @@ export const Button = ({
   children,
   variant,
   isLoading,
-  className,
   disabled,
+  className,
   ...props
 }: ButtonProps) => {
   return (
     <button
-      className={`${styles.button} ${styles[variant]} ${className ?? ''}`}
+      className={clsx(styles.button, styles[variant], className)}
       disabled={disabled || isLoading}
       {...props}
     >

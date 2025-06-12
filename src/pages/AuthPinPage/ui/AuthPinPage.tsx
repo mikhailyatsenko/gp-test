@@ -17,13 +17,11 @@ export const AuthPinPage = () => {
   }, [email, navigate]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.formContainer}>
-        <h2 className={styles.title}>Enter PIN code</h2>
-        <p className={styles.subtitle}>Code sent to {email}</p>
+    <div className={styles.formContainer}>
+      <h2 className={styles.title}>Enter PIN code</h2>
+      <p className={styles.subtitle}>Code sent to {email}</p>
 
-        <AuthByPin email={email} />
-      </div>
+      <AuthByPin email={email} />
     </div>
   );
 };

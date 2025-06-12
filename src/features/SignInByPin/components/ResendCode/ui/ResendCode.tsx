@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { api } from '~/shared/api';
 import { Button, ButtonVariant } from '~/shared/components/Button';
-import { getBrowserLanguage } from '~/shared/lib';
+import { getBrowserLanguage } from '~/shared/utils';
 import { RESEND_TIMEOUT } from '../constants';
 import type { ResendCodeProps } from '../types';
 import styles from './ResendCode.module.css';

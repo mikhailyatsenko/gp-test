@@ -5,6 +5,5 @@ export type AuthFormProps = {
   setInputValue: (value: string) => void;
   error: string;
   isLoading: boolean;
-
   onSubmit: (e: React.FormEvent) => void;
 };

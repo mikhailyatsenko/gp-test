@@ -7,21 +7,16 @@ import styles from './AuthPage.module.css';
 export const AuthPage = () => {
   const navigate = useNavigate();
   return (
-    <div className={styles.container}>
-      <div className={styles.formContainer}>
-        <h2 className={styles.title}>Sign in</h2>
-        <p className={styles.subtitle}>Enter your email or access code</p>
-        <AuthUser />
-        <div className={styles.links}>
-          <Button
-            variant={ButtonVariant.Blank}
-            className={styles.link}
-            onClick={() => navigate(Routes.Reg)}
-          >
-            Don't have an account? Sign up
-          </Button>
-        </div>
-      </div>
+    <div className={styles.formContainer}>
+      <h2 className={styles.title}>Sign in</h2>
+      <p className={styles.subtitle}>Enter your email or access code</p>
+      <AuthUser />
+      <Button
+        variant={ButtonVariant.Blank}
+        onClick={() => navigate(Routes.Reg)}
+      >
+        Don't have an account? Sign up
+      </Button>
     </div>
   );
 };

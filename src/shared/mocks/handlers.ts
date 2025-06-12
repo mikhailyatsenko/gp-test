@@ -36,14 +36,11 @@ export const handlers = [
       );
     }
 
-    return HttpResponse.json(
-      {
-        data: {
-          message: 'PIN code sent',
-        },
+    return HttpResponse.json({
+      data: {
+        message: 'PIN code sent',
       },
-      { status: 200 },
-    );
+    });
   }),
 
   // Login with email + PIN
@@ -88,7 +85,6 @@ export const handlers = [
     return HttpResponse.json({
       data: {
         login_code: code,
-        session: `session_${Date.now()}`,
       },
     });
   }),
@@ -96,8 +92,9 @@ export const handlers = [
   // Login with code
   http.post(`${API_URL}/auth/login/code`, async ({ request }) => {
     const body = (await request.json()) as { login_code: string };
+    const savedCode = localStorage.getItem('AnonymousCode');
 
-    if (!/^\d{16}$/.test(body.login_code)) {
+    if (body.login_code !== savedCode) {
       return HttpResponse.json(
         {
           error: {

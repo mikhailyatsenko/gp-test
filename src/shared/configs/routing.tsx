@@ -4,13 +4,17 @@ import { AuthPinPage } from '~/pages/AuthPinPage';
 import { CodePage } from '~/pages/CodePage';
 import { HomePage } from '~/pages/HomePage';
 import { RegPage } from '~/pages/RegPage';
+import { ProtectedRoute } from '~/shared/components/ProtectedRoute';
 import { Routes } from '~/shared/constants/routes';
 
 export const router = createBrowserRouter([
   {
     path: Routes.Home,
-    index: true,
-    element: <HomePage />,
+    element: (
+      <ProtectedRoute>
+        <HomePage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: Routes.Auth,

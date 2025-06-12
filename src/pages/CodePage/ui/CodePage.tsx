@@ -1,7 +1,29 @@
-export const CodePage = () => {
-  return <div>CODE PAGE</div>;
-};
+import { useNavigate } from 'react-router-dom';
 
-// const generateCode = () => {
-//   return Array.from({ length: 16 }, () => Math.floor(Math.random() * 10)).join('');
-// };
+import { GetAnonCode } from '~/features/GetAnonCode';
+import { Button, ButtonVariant } from '~/shared/components/Button';
+import styles from './CodePage.module.css';
+
+export function CodePage() {
+  const navigate = useNavigate();
+  const handleContinue = () => {
+    navigate('/auth');
+  };
+
+  return (
+    <div className={styles.formContainer}>
+      <h2 className={styles.title}>Your access code</h2>
+      <p className={styles.subtitle}>
+        Save this code, it will be needed for login
+      </p>
+      <GetAnonCode />
+      <Button
+        type="button"
+        onClick={handleContinue}
+        variant={ButtonVariant.Blue}
+      >
+        Continue
+      </Button>
+    </div>
+  );
+}

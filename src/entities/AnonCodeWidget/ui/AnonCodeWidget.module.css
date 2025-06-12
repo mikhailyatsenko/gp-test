@@ -1,0 +1,18 @@
+.codeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.code {
+  padding: 16px;
+  font-size: 20px;
+  font-family: monospace;
+  text-align: center;
+  letter-spacing: 4px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  user-select: all;
+}
