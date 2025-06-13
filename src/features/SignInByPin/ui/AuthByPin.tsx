@@ -5,7 +5,7 @@ import { PinCodeForm } from '~/entities/PinCodeForm/ui/PinCodeForm';
 import { Routes } from '~/shared/constants';
 import { showToast } from '~/shared/lib';
 import { ResendCode } from '../components/ResendCode/ui/ResendCode';
-import { CODE_SENT } from '../constants';
+import { CODE_SENT, LOGIN_SUCCESS, PIN_LENGTH_ERROR } from '../constants';
 import { useLoginByEmail } from '../hooks/useLoginByEmail';
 import type { AuthByPinProps } from '../types';
 
@@ -15,7 +15,7 @@ export const AuthByPin: FC<AuthByPinProps> = ({ email }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    showToast.success(`${CODE_SENT}`);
+    showToast.success(CODE_SENT);
   }, []);
 
   useEffect(() => {
@@ -28,19 +28,19 @@ export const AuthByPin: FC<AuthByPinProps> = ({ email }) => {
     e.preventDefault();
 
     if (pinValue.length !== 6) {
-      showToast.warning('Please enter a 6-digit PIN code');
+      showToast.warning(PIN_LENGTH_ERROR);
       return;
     }
 
     const success = await login(email, pinValue);
     if (success) {
-      showToast.success('Successfully logged in!');
+      showToast.success(LOGIN_SUCCESS);
       navigate(Routes.Home);
     }
   };
 
-  const handlePinChange = (e: React.ChangeEvent) => {
-    setPinValue((e.target as HTMLInputElement).value.replace(/\D/g, ''));
+  const handlePinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPinValue(e.target.value.replace(/\D/g, ''));
   };
 
   return (

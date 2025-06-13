@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { api } from '~/shared/api';
 import { getBrowserLanguage } from '../utils';
+import { REGISTRATION_ERROR } from './constants';
 
 interface UseEnterByEmailResult {
   register: (email: string) => Promise<boolean>;
@@ -29,7 +30,11 @@ export const useEnterByEmail = (): UseEnterByEmailResult => {
 
       return true;
     } catch (error) {
-      setError('Error by sending code. Try later.');
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError(REGISTRATION_ERROR);
+      }
       console.error('Registration error:', error);
       return false;
     } finally {

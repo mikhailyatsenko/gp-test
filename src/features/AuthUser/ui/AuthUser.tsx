@@ -5,7 +5,7 @@ import { AuthForm } from '~/entities/AuthForm';
 import { Routes } from '~/shared/constants';
 import { useEnterByEmail } from '~/shared/hooks';
 import { showToast } from '~/shared/lib';
-import { EMAIL_INVALID_ERROR } from '../constants';
+import { EMAIL_INVALID_ERROR, InputType } from '../constants';
 import { useAuthByCode } from '../hooks/useAuthByCode';
 import { validateInput } from '../lib/validateInput';
 
@@ -39,7 +39,7 @@ export const AuthUser = () => {
       return;
     }
 
-    if (inputType === 'email') {
+    if (inputType === InputType.Email) {
       const success = await register(inputValue);
       if (success) {
         navigate(Routes.AuthEmail, { state: { email: inputValue } });

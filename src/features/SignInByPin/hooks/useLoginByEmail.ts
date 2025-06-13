@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { api } from '~/shared/api';
 import { useAuth } from '~/shared/hooks/useAuth';
+import { LOGIN_ERROR } from '../constants';
 
 interface UseLoginByEmailResult {
   login: (email: string, pincode: string) => Promise<boolean>;
@@ -30,7 +31,7 @@ export const useLoginByEmail = (): UseLoginByEmailResult => {
       if (error instanceof Error) {
         setError(error.message);
       } else {
-        setError('Failed to login. Please try again.');
+        setError(LOGIN_ERROR);
       }
       console.error('Login error:', error);
       return false;

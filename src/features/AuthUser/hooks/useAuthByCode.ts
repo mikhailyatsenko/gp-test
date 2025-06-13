@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { api } from '~/shared/api';
 import { useAuth } from '~/shared/hooks';
+import { LOGIN_ERROR } from '../constants';
 
 interface UseAuthByCodeResult {
   login: (code: string) => Promise<boolean>;
@@ -24,10 +25,13 @@ export const useAuthByCode = (): UseAuthByCodeResult => {
       });
 
       setAuth(response.data.session);
-
       return true;
     } catch (error) {
-      setError('Invalid access code');
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError(LOGIN_ERROR);
+      }
       console.error('Login error:', error);
       return false;
     } finally {

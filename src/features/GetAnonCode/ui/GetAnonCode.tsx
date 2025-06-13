@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AnonCodeWidget } from '~/entities/AnonCodeWidget';
 import { showToast } from '~/shared/lib';
+import { ANONYMOUS_STORAGE_KEY } from '../constants';
 import { useRegisterAnonymous } from '../hooks/useRegisterAnonymous';
 
 export const GetAnonCode = () => {
@@ -16,7 +17,7 @@ export const GetAnonCode = () => {
     const regCode = await registerAnonymous();
     if (regCode) {
       setCode(regCode);
-      localStorage.setItem('AnonymousCode', regCode);
+      localStorage.setItem(ANONYMOUS_STORAGE_KEY, regCode);
     }
   }, [registerAnonymous]);
 

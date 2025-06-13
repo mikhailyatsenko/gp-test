@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { api } from '~/shared/api';
 import { useAuth } from '~/shared/hooks/useAuth';
+import { REGISTRATION_ERROR } from '../constants';
 
 interface UseRegisterAnonymousResult {
   register: () => Promise<string | null>;
@@ -25,7 +26,7 @@ export const useRegisterAnonymous = (): UseRegisterAnonymousResult => {
       if (error instanceof Error) {
         setError(error.message);
       } else {
-        setError('Failed to register. Please try again.');
+        setError(REGISTRATION_ERROR);
       }
       console.error('Anonymous registration error:', error);
       return null;

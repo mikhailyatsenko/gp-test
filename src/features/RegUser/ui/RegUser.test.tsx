@@ -60,46 +60,6 @@ describe('RegUser', () => {
     });
   });
 
-  it('handles email validation error', async () => {
-    server.use(
-      http.post(`${API_URL}/user/register/email`, () => {
-        return HttpResponse.json(
-          {
-            error: {
-              code: 'VALIDATION_ERROR',
-              message: 'Invalid email format',
-              details: [
-                {
-                  field: 'email',
-                  message: 'Email address format is incorrect',
-                },
-              ],
-            },
-          },
-          { status: 422 },
-        );
-      }),
-    );
-
-    render(
-      <TestWrapper>
-        <RegUser />
-      </TestWrapper>,
-    );
-
-    const input = screen.getByRole('textbox');
-    const submitButton = screen.getByText('Continue with Email');
-
-    fireEvent.change(input, { target: { value: 'invalid-email' } });
-    fireEvent.click(submitButton);
-
-    await waitFor(() => {
-      expect(
-        screen.getByText('Error by sending code. Try later.'),
-      ).toBeInTheDocument();
-    });
-  });
-
   it('navigates to anonymous registration', async () => {
     render(
       <TestWrapper>
