@@ -6,6 +6,7 @@ interface UseAuthByCodeResult {
   login: (code: string) => Promise<boolean>;
   error: string;
   isLoading: boolean;
+  clearError: () => void;
 }
 
 export const useAuthByCode = (): UseAuthByCodeResult => {
@@ -34,5 +35,9 @@ export const useAuthByCode = (): UseAuthByCodeResult => {
     }
   };
 
-  return { login, error, isLoading };
+  const clearError = () => {
+    setError('');
+  };
+
+  return { login, error, isLoading, clearError };
 };

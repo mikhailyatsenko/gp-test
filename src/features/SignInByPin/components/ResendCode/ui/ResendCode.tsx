@@ -1,6 +1,5 @@
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import { Button, ButtonVariant } from '~/shared/components/Button';
 import { useEnterByEmail } from '~/shared/hooks';
 import { showToast } from '~/shared/lib';
@@ -52,7 +51,7 @@ export const ResendCode: FC<ResendCodeProps> = ({ email }) => {
 
   useEffect(() => {
     if (registerError) {
-      toast.error(registerError);
+      showToast.error(registerError);
     }
   }, [registerError]);
 

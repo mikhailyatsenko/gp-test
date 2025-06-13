@@ -3,61 +3,59 @@ import { type FC, useState } from 'react';
 import { Button, ButtonVariant } from '~/shared/components/Button';
 import { TextInput } from '~/shared/components/TextInput';
 import {
+  ANONYMOUS_REGISTRATION_LABEL,
   CONTINUE_WITH_EMAIL,
   EMAIL_INPUT_LABEL,
+  EMAIL_REGISTRATION_LABEL,
   LOADING_TEXT,
   OR_DIVIDER,
+  REGISTRATION_OPTIONS_LABEL,
 } from '../constants';
 import type { RegFormProps } from '../types';
 import styles from './RegForm.module.css';
 
 export const RegForm: FC<RegFormProps> = ({
   onEmailSubmit,
+  onEmailChange,
   onAnonymousSubmit,
-  emailError,
-  anonymousError,
+  inputError,
+  inputValue,
   isEmailLoading,
-  isAnonymousLoading,
 }) => {
-  const [email, setEmail] = useState('');
-
-  const handleEmailSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await onEmailSubmit(email);
-  };
-
   const handleAnonymousSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await onAnonymousSubmit();
   };
 
-  const isDisabled = isEmailLoading || isAnonymousLoading;
+  const isDisabled = isEmailLoading;
+  const displayError = inputError || inputError;
 
   return (
-    <section aria-label="Registration options">
+    <section aria-label={REGISTRATION_OPTIONS_LABEL}>
       <form
         className={styles.form}
-        onSubmit={handleEmailSubmit}
-        aria-label="Email registration"
+        onSubmit={onEmailSubmit}
+        aria-label={EMAIL_REGISTRATION_LABEL}
         noValidate
       >
         <fieldset className={styles.inputGroup}>
           <legend className="sr-only">{EMAIL_INPUT_LABEL}</legend>
           <TextInput
+            autoComplete="off"
             type="email"
             required
             placeholder={EMAIL_INPUT_LABEL}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={inputValue}
+            onChange={onEmailChange}
             disabled={isDisabled}
             label={EMAIL_INPUT_LABEL}
-            invalid={!!emailError}
+            invalid={!!displayError}
             hideLabel
             aria-required="true"
           />
-          {emailError && (
+          {displayError && (
             <p className={styles.error} role="alert">
-              {emailError}
+              {displayError}
             </p>
           )}
         </fieldset>
@@ -81,9 +79,8 @@ export const RegForm: FC<RegFormProps> = ({
         type="button"
         onClick={handleAnonymousSubmit}
         disabled={isDisabled}
-        aria-busy={isAnonymousLoading}
       >
-        {isAnonymousLoading ? LOADING_TEXT : 'Anonymous Registration'}
+        {ANONYMOUS_REGISTRATION_LABEL}
       </Button>
     </section>
   );

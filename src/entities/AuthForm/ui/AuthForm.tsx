@@ -7,10 +7,10 @@ import styles from './AuthForm.module.css';
 
 export const AuthForm: FC<AuthFormProps> = ({
   inputValue,
-  setInputValue,
   error,
   isLoading,
   onSubmit,
+  onInputChange,
 }) => {
   return (
     <form
@@ -24,13 +24,14 @@ export const AuthForm: FC<AuthFormProps> = ({
           {INPUT_LABEL}
         </legend>
         <TextInput
+          autoComplete="off"
           id="auth-input"
           name="auth"
           type="text"
           required
           placeholder={INPUT_LABEL}
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={onInputChange}
           disabled={isLoading}
           label={INPUT_LABEL}
           hideLabel

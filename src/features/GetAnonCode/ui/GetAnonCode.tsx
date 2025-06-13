@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AnonCodeWidget } from '~/entities/AnonCodeWidget';
+import { showToast } from '~/shared/lib';
 import { useRegisterAnonymous } from '../hooks/useRegisterAnonymous';
 
 export const GetAnonCode = () => {
@@ -24,6 +25,12 @@ export const GetAnonCode = () => {
       getCode();
     }
   }, [code, getCode]);
+
+  useEffect(() => {
+    if (anonymousError) {
+      showToast.error(anonymousError);
+    }
+  }, [anonymousError]);
 
   return (
     <AnonCodeWidget

@@ -1,6 +1,7 @@
+import { EMAIL_REGEX } from '~/shared/constants';
+
 export const validateInput = (value: string) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (emailRegex.test(value)) {
+  if (EMAIL_REGEX.test(value)) {
     return 'email';
   }
 

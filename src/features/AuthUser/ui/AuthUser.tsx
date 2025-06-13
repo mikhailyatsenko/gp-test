@@ -1,9 +1,11 @@
 import type React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthForm } from '~/entities/AuthForm';
 import { Routes } from '~/shared/constants';
 import { useEnterByEmail } from '~/shared/hooks';
+import { showToast } from '~/shared/lib';
+import { EMAIL_INVALID_ERROR } from '../constants';
 import { useAuthByCode } from '../hooks/useAuthByCode';
 import { validateInput } from '../lib/validateInput';
 
@@ -16,12 +18,14 @@ export const AuthUser = () => {
     register,
     error: registerError,
     isLoading: isRegisterLoading,
+    clearError: clearRegisterError,
   } = useEnterByEmail();
 
   const {
     login,
     error: loginError,
     isLoading: isLoginLoading,
+    clearError: clearLoginError,
   } = useAuthByCode();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,7 +35,7 @@ export const AuthUser = () => {
     const inputType = validateInput(inputValue);
 
     if (!inputType) {
-      setInputError('Enter valid email or 16-digit code');
+      setInputError(EMAIL_INVALID_ERROR);
       return;
     }
 
@@ -48,14 +52,36 @@ export const AuthUser = () => {
     }
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setInputValue(newValue);
+    if (registerError) {
+      clearRegisterError();
+    }
+    if (loginError) {
+      clearLoginError();
+    }
+    if (inputError) {
+      if (validateInput(newValue)) {
+        setInputError('');
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (registerError) {
+      showToast.error(registerError);
+    }
+  }, [registerError]);
+
   const isLoading = isRegisterLoading || isLoginLoading;
   return (
     <AuthForm
       inputValue={inputValue}
-      setInputValue={setInputValue}
       error={inputError || registerError || loginError}
       isLoading={isLoading}
       onSubmit={handleSubmit}
+      onInputChange={handleInputChange}
     />
   );
 };

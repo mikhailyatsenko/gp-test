@@ -6,11 +6,16 @@ interface UseEnterByEmailResult {
   register: (email: string) => Promise<boolean>;
   error: string;
   isLoading: boolean;
+  clearError: () => void;
 }
 
 export const useEnterByEmail = (): UseEnterByEmailResult => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const clearError = () => {
+    setError('');
+  };
 
   const register = async (email: string): Promise<boolean> => {
     setError('');
@@ -32,5 +37,5 @@ export const useEnterByEmail = (): UseEnterByEmailResult => {
     }
   };
 
-  return { register, error, isLoading };
+  return { register, error, isLoading, clearError };
 };
