@@ -17,8 +17,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     if (savedSession) {
       setSession(savedSession);
       setIsAuthenticated(true);
-      setIsInitialized(true);
     }
+    setIsInitialized(true);
   }, []);
 
   const setAuth = (newSession: string) => {

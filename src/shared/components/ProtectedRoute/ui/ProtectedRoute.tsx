@@ -10,7 +10,6 @@ interface ProtectedRouteProps {
 export const ProtectedRoute: FC<ProtectedRouteProps> = ({ children }) => {
   const { isAuthenticated, isInitialized } = useAuth();
   const location = useLocation();
-
   if (!isAuthenticated && isInitialized) {
     return <Navigate to={Routes.Auth} state={{ from: location }} replace />;
   }
